@@ -9,10 +9,16 @@
         <label for="animal">Animal
             <input type="text" name='animalName' id="animal">
         </label><br>
+        <label for="quantity">Quantity
+            <input type="text" id="quantity" name="quantity">
+        </label>
         <input type="submit" value="Next">
         <span>
             <check if="isset(@errors['animal']")>
                 <true>{{@errors['animal']}}</true>
+            </check>
+            <check if="isset(@errors['quantity']")>
+                <true>{{@errors['quantity']}}</true>
             </check>
         </span>
     </form>
