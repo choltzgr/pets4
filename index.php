@@ -77,12 +77,26 @@ $f3->route('GET|POST /order', function ($f3) {
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST')
     {
-        if(isset($_POST['animalName']) && validString($_POST['animalName'])){
+        if(isset($_POST['animalName']) && validString($_POST['animalName']))
+        {
             $_SESSION['animalName'] = $_POST['animalName'];
-            $f3->reroute('/order2');
-        } else {
+
+            if(isset($_POST['quantity']) && ctype_digit($_POST['quantity']) && $_POST['quantity'] >= 1)
+            {
+                $_SESSION['quantity'] = $_POST['quantity'];
+                $f3->reroute('/order2');
+            }
+            else
+            {
+                $f3->set("errors['quantity']", "Please enter a quantity that is greater than 1.");
+            }
+        }
+        else
+            {
             $f3->set("errors['animal']", "Please enter an animal.");
         }
+
+
     }
     $view = new Template();
     echo $view->render('views/form1.html');
